@@ -1,0 +1,3 @@
+What is Musix?
+==============
+Musix is a quick'n'dirty ruby library for searching various music sources. Currently Spotify, Grooveshark and iTunes are supported.
