@@ -6,6 +6,12 @@ require 'nokogiri'
 require 'Plist'
 require 'metaid'
 require 'cgi'
+
+# = What is Musix?
+# 
+# Musix was written to provide a simple interface for searching popular
+# music services such as Spotify, Grooveshark, ITunes and possibly more
+# in the future.
 module Musix
   # = A Spotify metadata API wrapper
   #
@@ -17,7 +23,7 @@ module Musix
     format :xml
     base_uri 'http://ws.spotify.com/'
     
-    class Search      
+    class Search #:nodoc:
       [:track, :album, :artist].each do |method|
         meta_def method do |query, *args|
           Spotify::get("/search/1/#{method}", :query => { :q => query, :page => [args.first.to_i, 1].max }).fetch("#{method}s")
@@ -25,6 +31,7 @@ module Musix
       end
     end
     
+    # Looks up a Spotify URI
     def self.lookup(uri, detail = 0)
       type = uri.match('spotify:([^:]+)')[1]
       get '/lookup/1/', :query => { :uri => uri, :extras => [type, "detail"].slice(0, detail).join }
@@ -40,6 +47,7 @@ module Musix
     format :json
     default_params :format => 'json'
     
+    # Searches Grooveshark (tinysong), returns a maximum of +limit+ results
     def self.search(uri, limit = 3)
       get "http://tinysong.com/s/#{CGI::escape uri}", :query => { :limit => limit }
     end
@@ -51,6 +59,7 @@ module Musix
     headers 'User-Agent' => 'iTunes/9.1'
     format :plain
     
+    # Searches iTunes for the search-term
     def self.search(term)
       result = get 'http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZSearch.woa/wa/search?submit=edit&term=%s' % CGI::escape(term)
       itms   = Nokogiri::XML result
