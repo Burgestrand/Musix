@@ -1,14 +1,15 @@
-require 'rubygems'
+require 'bundler'
+Bundler.setup
+
 require 'httparty'
 require 'nokogiri'
 require 'Plist'
-require 'cgi'
 require 'metaid'
-    
+require 'cgi'
 module Musix
-  # A Spotify metadata API wrapper
+  # = A Spotify metadata API wrapper
   #
-  # Examples:
+  # == Examples
   #   Service::Spotify::Search.track('Fix You')
   #   Service::Spotify::lookup(Service::Spotify::Search.track('Fix You')["track"].first["href"])
   module Spotify
