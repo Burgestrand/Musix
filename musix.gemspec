@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name    = 'Musix'
-  spec.version = '0.1'
+  spec.version = '0.2'
   
   spec.files   = ["lib/musix.rb"]
   

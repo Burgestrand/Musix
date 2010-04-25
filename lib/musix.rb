@@ -29,23 +29,23 @@ module Musix
     class Search
       
       # Searches Spotify for a track.
-      def track(query, page = 1)
+      def self.track(query, page = 1)
         search("track", query, page)
       end
       
       # Searches Spotify for an album.
-      def album(query, page = 1)
+      def self.album(query, page = 1)
         search("album", query, page)
       end
       
       # Searches Spotify for an artist.
-      def artist(query, page = 1)
+      def self.artist(query, page = 1)
         search("artist", query, page)
       end
       
       private
-      def search(type, query, page)
-        Spotify::get("/search/1/#{method}", :query => { :q => query, :page => [args.first.to_i, 1].max }).fetch("#{method}s")
+      def self.search(type, query, page)
+        Spotify::get("/search/1/#{type}", :query => { :q => query, :page => page }).fetch("#{type}s")
       end
     end
     
