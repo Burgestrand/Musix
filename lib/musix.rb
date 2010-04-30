@@ -5,7 +5,7 @@ require 'httparty'
 require 'nokogiri'
 require 'Plist'
 require 'metaid'
-require 'cgi'
+require 'uri'
 
 # = What is Musix?
 # 
@@ -70,7 +70,7 @@ module Musix
     
     # Searches Grooveshark (tinysong), returns a maximum of +limit+ results
     def self.search(uri, limit = 3)
-      get "http://tinysong.com/s/#{CGI::escape uri}", :query => { :limit => limit }
+      get "http://tinysong.com/s/#{URI::escape uri}", :query => { :limit => limit }
     end
   end
   
@@ -84,7 +84,7 @@ module Musix
     
     # Searches iTunes for +term+.
     def self.search(term)
-      result = get 'http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZSearch.woa/wa/search?submit=edit&term=%s' % CGI::escape(term)
+      result = get 'http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZSearch.woa/wa/search?submit=edit&term=%s' % URI::escape(term)
       itms   = Nokogiri::XML result
       Plist::parse_xml(itms.css('TrackList plist').to_s)["items"]
     end
