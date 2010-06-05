@@ -45,7 +45,8 @@ module Musix
       
       private
       def self.search(type, query, page)
-        (Spotify::get("/search/1/#{type}", :query => { :q => query, :page => page }) || {}).fetch("#{type}s")
+        result = Spotify::get("/search/1/#{type}", :query => { :q => query, :page => page }) || Hash.new
+        return result.fetch("#{type}s", nil)
       end
     end
     
