@@ -1,6 +1,6 @@
 require 'httparty'
 require 'nokogiri'
-require 'Plist'
+require 'plist'
 require 'metaid'
 require 'uri'
 
