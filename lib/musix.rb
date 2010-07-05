@@ -1,6 +1,3 @@
-require 'bundler'
-Bundler.setup
-
 require 'httparty'
 require 'nokogiri'
 require 'Plist'
